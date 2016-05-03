@@ -1,0 +1,23 @@
+{
+  "name": "dresslab-web",
+  "description": "Innovate your dress",
+  "main": "gulpfile.js",
+  "authors": [
+    "toioski <toioski@hotmail.it>"
+  ],
+  "license": "ISC",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "font-awesome": "fontawesome#^4.6.1",
+    "jquery": "^2.2.3"
+  }
+}
