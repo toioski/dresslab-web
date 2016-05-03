@@ -80,7 +80,7 @@ gulp.task('styles', ['clean'], function () {
 });
 
 
-gulp.task('scripts', ['styles', 'shorthand'], function () { // mettendo ['styles'] forziamo questo task ad aspettare che finisca il task style
+gulp.task('scripts', ['styles'], function () { // mettendo ['styles'] forziamo questo task ad aspettare che finisca il task style
     var pipeline = new Pipeline(app);
 
     pipeline.add([
