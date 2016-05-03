@@ -13,7 +13,7 @@ class AppBundleExtension extends \Twig_Extension
      * @return string The extension name
      */
     public function getName() {
-        return 'twig.extension.apptwig';
+        return 'app_extension';
     }
     
     public function __construct($container) {

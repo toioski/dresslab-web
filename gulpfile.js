@@ -13,13 +13,13 @@ app.addStyle = function (paths, outputFilename) {
 
     var options = {
         noCache: true,
-            compass: false,
-            bundleExec: false,
-            sourcemap: true
+        compass: false,
+        bundleExec: false,
+        sourcemap: true
     };
 
     // Don’t write sourcemaps of sourcemaps
-    var filter = plugins.filter(['*.css', '!*.map'], { restore: true });
+    var filter = plugins.filter(['*.css', '!*.map'], {restore: true});
 
     return sass(paths, options)
         .pipe(plugins.plumber())
@@ -31,9 +31,10 @@ app.addStyle = function (paths, outputFilename) {
         .pipe(config.production ? plugins.minifyCss() : plugins.util.noop())
         .pipe(plugins.rev())
         .pipe(plugins.sourcemaps.write('.'))
-        .pipe(filter.restore)
+        //.pipe(filter.restore)
         .pipe(gulp.dest(config.path.public))
         // write the rev-manifest.json file for gulp-rev
+
         .pipe(plugins.rev.manifest(config.revManifestPath, {
             merge: true
         }))
@@ -66,7 +67,7 @@ app.copy = function (srcFiles, outputDir) {
 // DEFINIZIONE TASK //
 // ---------------- //
 
-gulp.task('styles', function () {
+gulp.task('styles', ['clean'], function () {
     var pipeline = new Pipeline(app);
 
     pipeline.add([
@@ -105,7 +106,7 @@ gulp.task('scripts', ['styles', 'shorthand'], function () { // mettendo ['styles
     return pipeline.run(app.addScript);
 });
 
-gulp.task('fonts', function () {
+gulp.task('fonts', ['clean'], function () {
     return app.copy(
         config.path.bower + '/font-awesome/fonts/*',
         config.path.public + '/assets/fonts'
