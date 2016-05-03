@@ -34,7 +34,7 @@ class AppBundleExtension extends \Twig_Extension
      */
     public function getFilters() {
         return array(
-            'gulp_asset_version' => new \Twig_Filter_Method($this, 'gulpAssetVersion')
+            'gulp_asset_version' => new \Twig_SimpleFilter('gulp_asset_version', [$this, 'gulpAssetVersion'])
         );
     }
 
