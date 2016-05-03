@@ -80,28 +80,18 @@ gulp.task('styles', function () {
 });
 
 
-gulp.task('scripts', ['styles'], function () { // mettendo ['styles'] forziamo questo task ad aspettare che finisca il task style
+gulp.task('scripts', ['styles'], function () {
     var pipeline = new Pipeline(app);
 
     pipeline.add([
         config.path.bower + '/jquery/dist/jquery.js',
-        config.path.bower + '/angular/angular.js',
-        config.path.bower + '/angular-bootstrap/ui-bootstrap-tpls.js',
-        config.path.bower + '/angular-ui-router/release/angular-ui-router.js',
-        config.path.bower + '/Chart.js/Chart.js',
-        config.path.bower + '/angular-chart.js/dist/angular-chart.js',
-        config.path.bower + '/nganalytics/src/ng-analytics.js',
-        config.path.bower + '/angular-ui-select/dist/select.js',
-        config.path.bower + '/angular-sanitize/angular-sanitize.js'
-    ], 'backend-deps.js');
+        config.path.bower + '/angular/angular.js'
+    ], 'frontend-deps.js');
 
     pipeline.add([
-        config.path.coreBundleResources + '/js/angular/module/SymfonyRouter.js',
-        config.path.backendAssets + '/js/ui-states.js',
-        config.path.backendAssets + '/js/app.js',
-        config.path.backendAssets + '/' + config.js.pattern
+        config.path.frontendAssets + '/' + config.js.pattern
 
-    ], 'backend.js');
+    ], 'frontend.js');
 
     return pipeline.run(app.addScript);
 });
@@ -117,7 +107,7 @@ gulp.task('images', function () {
     var pipeline = new Pipeline(app);
 
     pipeline.add([
-        config.path.backendAssets + '/images/**/*'
+        config.path.frontendAssets + '/images/**/*'
     ], config.path.public + '/assets/images/backend');
 
     return pipeline.run(app.copy);
