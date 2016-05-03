@@ -26,12 +26,12 @@ app.addStyle = function (paths, outputFilename) {
         .pipe(plugins.debug())
         .pipe(plugins.sourcemaps.init())
         //.pipe(plugins.autoprefixer(config.autoprefixer))
-        .pipe(filter)
+        //.pipe(filter)
         .pipe(plugins.concat('assets/css/' + outputFilename))
         .pipe(config.production ? plugins.minifyCss() : plugins.util.noop())
         .pipe(plugins.rev())
         .pipe(plugins.sourcemaps.write('.'))
-        .pipe(filter.restore)
+        //.pipe(filter.restore)
         .pipe(gulp.dest(config.path.public))
         // write the rev-manifest.json file for gulp-rev
 
@@ -132,8 +132,8 @@ gulp.task('clean', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(config.path.backendAssets + '/' + config.sass.pattern, ['styles']);
-    gulp.watch(config.path.backendAssets + '/' + config.js.pattern, ['scripts']);
+    gulp.watch(config.path.frontendAssets + '/' + config.sass.pattern, ['styles']);
+    gulp.watch(config.path.frontendAssets + '/' + config.js.pattern, ['scripts']);
 });
 
 // Task composti
