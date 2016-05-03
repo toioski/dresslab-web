@@ -9,7 +9,7 @@
     </head>
     <body>
         {% block body %}{% endblock %}
-        <script rel="script" href="{{ asset('assets/js/frontend-deps.js' | gulp_asset_version) }}"></script>
-        <script rel="script" href="{{ asset('assets/js/frontend.js' | gulp_asset_version) }}"></script>
+        <script rel="script" src="{{ asset('assets/js/frontend-deps.js' | gulp_asset_version) }}"></script>
+        <script rel="script" src="{{ asset('assets/js/frontend.js' | gulp_asset_version) }}"></script>
     </body>
 </html>
