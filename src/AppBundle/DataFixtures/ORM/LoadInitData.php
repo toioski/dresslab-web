@@ -561,30 +561,68 @@ class LoadInitData implements FixtureInterface, OrderedFixtureInterface
         $articolo->setProdotto($prodotto)
             ->setColore("Nero")
             ->setColoreHex("#000000")
-            ->setPosizione("Settore D1")
+            ->setPosizione("Settore D2")
             ->setTaglia("S")
-            ->setPrezzo(29.00)
-            ->setQuantita(8);
+            ->setPrezzo(39.00)
+            ->setQuantita(3);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
             ->setColore("Grigio Scuro")
             ->setColoreHex("#4d4d4d")
-            ->setPosizione("Settore D1")
+            ->setPosizione("Settore D2")
             ->setTaglia("M")
-            ->setPrezzo(29.00)
-            ->setQuantita(1);
+            ->setPrezzo(39.00)
+            ->setQuantita(5);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
             ->setColore("Grigio Chiaro")
             ->setColoreHex("#cccccc")
-            ->setPosizione("Settore D1")
+            ->setPosizione("Settore D2")
             ->setTaglia("L")
-            ->setPrezzo(29.00)
-            ->setQuantita(4);
+            ->setPrezzo(39.00)
+            ->setQuantita(7);
+        $manager->persist($articolo);
+
+
+        /**
+         * Pullover
+         */
+        $prodotto = new Prodotto();
+        $prodotto->setNome("Pullover");
+        $manager->persist($prodotto);
+
+        $articolo = new Articolo();
+        $articolo->setProdotto($prodotto)
+            ->setColore("Viola Rosso")
+            ->setColoreHex("#DB2645")
+            ->setPosizione("Settore B4")
+            ->setTaglia("S")
+            ->setPrezzo(39.00)
+            ->setQuantita(5);
+        $manager->persist($articolo);
+
+        $articolo = new Articolo();
+        $articolo->setProdotto($prodotto)
+            ->setColore("Grigio Antracite")
+            ->setColoreHex("#293133")
+            ->setPosizione("Settore B4")
+            ->setTaglia("M")
+            ->setPrezzo(39.00)
+            ->setQuantita(5);
+        $manager->persist($articolo);
+
+        $articolo = new Articolo();
+        $articolo->setProdotto($prodotto)
+            ->setColore("Grigio Chiaro")
+            ->setColoreHex("#cccccc")
+            ->setPosizione("Settore B4")
+            ->setTaglia("L")
+            ->setPrezzo(39.00)
+            ->setQuantita(2);
         $manager->persist($articolo);
 
         // Flush del database
