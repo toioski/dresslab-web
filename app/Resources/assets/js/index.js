@@ -1,9 +1,11 @@
-$(function() {
-    console.log( "ready!" );
+(function () {
+    console.log( "angular loaded!" );
+
+    angular.module('dresslab', []);
 
     // Selezione sidebar
     $('.option').click(function(e) {
         $(this).toggleClass('selected');
         $(this).siblings().removeClass('selected');
     })
-});
+})();

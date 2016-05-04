@@ -7,7 +7,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('assets/css/frontend.css' | gulp_asset_version) }}" />
     </head>
-    <body>
+    <body ng-app="dresslab">
         {% block body %}{% endblock %}
         <script rel="script" src="{{ asset('assets/js/frontend-deps.js' | gulp_asset_version) }}"></script>
         <script rel="script" src="{{ asset('assets/js/frontend.js' | gulp_asset_version) }}"></script>
