@@ -1,5 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Camerino Controller!</h1>
+    {% include 'navbar.html.twig' %}
+    <div class="riepilogo-capi">
+        <div class="wrap">
+            <div class="numero-capi">3</div>
+            <div class="title">Capi nel camerino</div>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        {% include 'sidebar.html.twig' %}
+        <div class="guardaroba">
+
+        </div>
+    </div>
 {% endblock %}

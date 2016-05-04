@@ -1,9 +1,9 @@
-body {
-    a {
-        color: red;
-    }
-    #welcome h1 span {
-        font-size: 50px;
-    }
-
+.content-wrapper {
+    position: relative;
+    height: 100%;
 }
+
+@import "vars";
+@import "navbar";
+@import "sidebar";
+@import "guardaroba";
