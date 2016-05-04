@@ -90,7 +90,6 @@ gulp.task('scripts', ['styles'], function () {
 
     pipeline.add([
         config.path.frontendAssets + '/' + config.js.pattern
-
     ], 'frontend.js');
 
     return pipeline.run(app.addScript);

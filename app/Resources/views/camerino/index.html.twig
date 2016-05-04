@@ -10,26 +10,17 @@
     </div>
     <div class="content-wrapper">
         {% include 'sidebar.html.twig' %}
-        <div class="guardaroba">
+        {% verbatim %}
+        <div class="guardaroba" ng-controller="GuardarobaController as guardaroba">
             <header>Il mio guardaroba</header>
             <main>
-                <div class="dress-card">
-                    <div class="dress-container">
-                        <img class="dress-image" src="{{ asset('assets/images/vestiti/capo_1.jpg') }}">
-                        <div class="dress-head">
-                            <div class="dress-brand pull-left">Alpha Studio</div>
-                            <div class="dress-price pull-right">€ 150,00</div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="dress-description">
-                            Camicia blu con taschini
-                        </div>
-                        <div class="dress-size">Taglia: S</div>
-                        <div class="dress-color">Colore: <span class="color blu"></span></div>
-                    </div>
-                    <div class="dress-help">Clicca per maggiori dettagli</div>
+                <pre>{{ guardaroba.data }}</pre>
+                <div class="dress-card-wrapper" ng-repeat="card in [0,1,2,3]">
+                    <dress-card description="ctrl.prova"></dress-card>
                 </div>
+                <div class="clearfix"></div>
             </main>
         </div>
+        {% endverbatim %}
     </div>
 {% endblock %}

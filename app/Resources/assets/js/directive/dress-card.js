@@ -4,18 +4,19 @@
             restrict: 'E',
             replace: true,
             scope: {
-                title:'@',
-                btntext: '@',
-                pathimg: '@',
-                link: '@'
+                id: '=',
+                description:'=',
+                price: '=',
+                size: '=',
+                color: '='
             },
-            templateUrl: '../../views/components/tile.html',
+            templateUrl: '/template/dresscard',
             link: function(scope, element) {
-                console.log("tile");
+                console.log("dresscard");
             }
         };
     }
 
     angular.module('dresslab')
-        .directive('dress-card', DressCard);
+        .directive('dressCard', DressCard);
 })();

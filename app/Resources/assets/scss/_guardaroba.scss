@@ -18,8 +18,17 @@
     }
 }
 
+.dress-card-wrapper {
+    float: left;
+    margin-right: 15px;
+    margin-top: 20px;
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
 .dress-card {
-    width: 300px;
+    width: $dress-card-width;
     cursor: pointer;
 
     .dress-container {

@@ -1,0 +1,16 @@
+<div class="dress-card">
+    <div class="dress-container">
+        <img class="dress-image" src="{{ asset('assets/images/vestiti/capo_1.jpg') }}">
+        {% verbatim %}
+        <div class="dress-head">
+            <div class="dress-brand pull-left">Alpha Studio</div>
+            <div class="dress-price pull-right">€ {{ price }}</div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="dress-description">{{ description }}</div>
+        <div class="dress-size">Taglia: {{ size }}</div>
+        <div class="dress-color">Colore: <span class="color {{ color }}"></span></div>
+        {% endverbatim %}
+    </div>
+    <div class="dress-help">Clicca per maggiori dettagli</div>
+</div>
