@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Articolo;
 use AppBundle\Entity\ArticoloProvato;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -62,6 +63,10 @@ class CamerinoController extends BaseController
      * @Route("/task/list", name="app_camerino_get_tasks")
      */
     public function getTasks() {
-        
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $tasks = $em->getRepository("AppBundle:Task")->findBy(["messaggio" => null]);
+        return $this->jsonResponse($this->serialize($tasks));
     }
 }
