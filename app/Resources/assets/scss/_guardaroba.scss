@@ -6,4 +6,70 @@
     right: $sidebar-width;
     background-color: $color-sfondo;
     overflow: scroll;
+    padding: 30px;
+    color: $color-testo-principale;
+
+    header {
+        font-size: 40px;
+    }
+
+    main {
+        margin-top: 20px;
+    }
+}
+
+.dress-card {
+    width: 300px;
+    cursor: pointer;
+
+    .dress-container {
+        box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+        padding: 25px;
+        background: white;
+        border: 1px solid $color-bordo;
+        transition: $standard-link-transition;
+        &:hover {
+            box-shadow: 0 0 3px rgba(0, 0, 0, .4);
+        }
+    }
+
+    .dress-image {
+        max-width: 100%;
+    }
+
+    .dress-head {
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .dress-description {
+        margin-top: 5px;
+        font-size: 20px;
+    }
+
+    .dress-size {
+        margin-top: 10px;
+    }
+
+    .dress-size, .dress-color {
+        font-weight: 600;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+    .dress-help {
+        font-size: 12px;
+        color: #909090;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .color {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-color: $color-arancione-primario;
+        border-radius: 50%;
+    }
 }
