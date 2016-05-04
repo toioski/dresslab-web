@@ -86,6 +86,7 @@ class CamerinoController extends BaseController
         $flag = $em->getRepository("AppBundle:Flag")
             ->findAll();
         if(count($flag) == 0) {
+            /** @var Flag $flag */
             $flag = new Flag();
             $flag->setTrue(true);
         } else {
@@ -96,6 +97,25 @@ class CamerinoController extends BaseController
         $em->persist($flag);
         $em->flush();
         return $this->jsonResponse($this->serialize($flag));
+    }
+
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/rfid/show", name="app_camerino_rfid_show")
+     */
+    public function showRfidAction() {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Flag[] $flags */
+        $flags = $em->getRepository("AppBundle:Flag")->findAll();
+        if(count($flags) == 0) {
+            return new JsonResponse(["message" => "not set"], 404);
+        } else {
+            return $this->jsonResponse($this->serialize($flags[0]));
+        }
     }
 
     /**
