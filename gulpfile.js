@@ -126,7 +126,14 @@ gulp.task('watch', function () {
     gulp.watch(config.path.frontendAssets + '/' + config.js.pattern, ['scripts']);
 });
 
-// Task composti
-gulp.task('default', ['clean', 'styles', 'scripts', 'fonts', 'images', 'watch']);
+gulp.task('db', shell.task([
+    './bin/console doctrine:schema:drop --dump-sql',
+    './bin/console doctrine:schema:drop --force',
+    './bin/console doctrine:schema:create'
+    // './bin/console doctrine:fixtures:load --fixtures=src/Wescape/CoreBundle/DataFixtures/ORM/SetupCredentials.php'
+]));
 
-gulp.task('build:production', ['clean', 'styles', 'scripts', 'fonts', 'images']);
+// Task composti
+gulp.task('default', ['clean', 'styles', 'scripts', 'fonts', 'images', 'watch', 'db']);
+
+gulp.task('build:production', ['clean', 'styles', 'scripts', 'fonts', 'images', 'db']);
