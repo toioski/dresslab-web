@@ -96,4 +96,28 @@ class Task
     {
         return $this->articolo;
     }
+
+    /**
+     * Set messaggio
+     *
+     * @param string $messaggio
+     *
+     * @return Task
+     */
+    public function setMessaggio($messaggio)
+    {
+        $this->messaggio = $messaggio;
+
+        return $this;
+    }
+
+    /**
+     * Get messaggio
+     *
+     * @return string
+     */
+    public function getMessaggio()
+    {
+        return $this->messaggio;
+    }
 }
