@@ -7,18 +7,15 @@ use AppBundle\Entity\ArticoloProvato;
 use AppBundle\Entity\Flag;
 use AppBundle\Entity\Task;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Query\ResultSetMapping;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\BrowserKit\Request;
-use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class CamerinoController
  *
  * @package AppBundle\Controller
- *
  * @Route("/camerino")
  */
 class CamerinoController extends BaseController
@@ -30,10 +27,8 @@ class CamerinoController extends BaseController
     /**
      * @Route(name="app_camerino_index")
      */
-    public function indexAction()
-    {
-        return $this->render('camerino/index.html.twig', array(
-            // ...
+    public function indexAction() {
+        return $this->render('camerino/index.html.twig', array(// ...
         ));
     }
 
@@ -53,12 +48,13 @@ class CamerinoController extends BaseController
                 "data" => new \DateTime("now")
             ]);
 
-        if(count($articoliProvati) == 0) {
+        if (count($articoliProvati) == 0) {
             $articoloProvato = new ArticoloProvato();
             $articoloProvato->setArticolo($articolo)
                 ->setQuantitaProvati(1)
                 ->setData(new \DateTime("now"));
-            var_dump("vuoto"); die();
+            var_dump("vuoto");
+            die();
         } else {
             $articoloProvato = $articoliProvati[0];
             $articoloProvato->setQuantitaProvati(
@@ -83,7 +79,6 @@ class CamerinoController extends BaseController
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @Route("/rfid", name="app_camerino_rfid")
      */
     public function rfidAction() {
@@ -93,14 +88,14 @@ class CamerinoController extends BaseController
         /** @var Flag[] $flag */
         $flag = $em->getRepository("AppBundle:Flag")
             ->findAll();
-        if(count($flag) == 0) {
+        if (count($flag) == 0) {
             /** @var Flag $flag */
             $flag = new Flag();
             $flag->setTrue(true);
         } else {
             /** @var Flag $flag */
             $flag = $flag[0];
-            $flag->setTrue(! $flag->getTrue());
+            $flag->setTrue(!$flag->getTrue());
         }
         $em->persist($flag);
         $em->flush();
@@ -110,7 +105,6 @@ class CamerinoController extends BaseController
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @Route("/rfid/show", name="app_camerino_rfid_show")
      */
     public function showRfidAction() {
@@ -119,7 +113,7 @@ class CamerinoController extends BaseController
 
         /** @var Flag[] $flags */
         $flags = $em->getRepository("AppBundle:Flag")->findAll();
-        if(count($flags) == 0) {
+        if (count($flags) == 0) {
             return new JsonResponse(["message" => "not set"], 404);
         } else {
             return $this->jsonResponse($this->serialize($flags[0]));
@@ -134,7 +128,7 @@ class CamerinoController extends BaseController
         $em = $this->getDoctrine()->getManager();
 
         $flag = $em->getRepository("AppBundle:Flag")->findAll();
-        if(count($flag) > 0) {
+        if (count($flag) > 0) {
             foreach ($flag as $f) {
                 $em->remove($f);
             }
@@ -148,7 +142,6 @@ class CamerinoController extends BaseController
      * @param $id
      *
      * @return JsonResponse
-     *
      * @Route("/dress/{id}/request", name="app_camerino_richiedi_articolo")
      */
     public function setTaskAction($id) {
@@ -157,7 +150,7 @@ class CamerinoController extends BaseController
 
         $articolo = $em->getRepository("AppBundle:Articolo")
             ->find($id);
-        if($articolo == null) {
+        if ($articolo == null) {
             return new JsonResponse(["success" => false], 404);
         }
 
@@ -172,7 +165,6 @@ class CamerinoController extends BaseController
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @Route("/task/list", name="app_camerino_task_list")
      */
     public function getUnservedTaskAction() {
@@ -185,13 +177,35 @@ class CamerinoController extends BaseController
     }
 
 
+    /**
+     * @param Request $request
+     * @param         $id
+     *
+     * @return JsonResponse
+     * @Route("/task/{id}/message", name="app_camerino_task_set_message")
+     * @Method("POST")
+     */
     public function serveTaskAction(Request $request, $id) {
-        
+        try {
+            $data = $this->jsonRequest($request);
+            /** @var EntityManager $em */
+            $em = $this->getDoctrine()->getManager();
+
+            $task = $em->getRepository("AppBundle:Task")->find($id);
+            if ($task == null) {
+                return new JsonResponse(["success" => false], 404);
+            }
+            $task->setMessaggio($data['messaggio']);
+            $em->persist($task);
+            $em->flush();
+            return new JsonResponse(['success' => true]);
+        } catch (Exception $e) {
+            return new JsonResponse(['success' => false, 'error' => $e->getMessage()], 500);
+        }
     }
 
     /**
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
-     *
      * @Route("/dress/list", name="app_camerino_list_dresses")
      */
     public function getCapiInCamerinoAction() {
@@ -222,7 +236,7 @@ class CamerinoController extends BaseController
                 /** @var Task[] $task */
                 $task = $qb->getQuery()->getResult();
 
-                if(count($task) > 0) {
+                if (count($task) > 0) {
                     /** @var Task $task */
                     $task = $task[0];
                     $articoli[] = $task->getArticolo();
@@ -244,10 +258,10 @@ class CamerinoController extends BaseController
         $em = $this->getDoctrine()->getManager();
 
         $flag = $em->getRepository("AppBundle:Flag")->findAll();
-        if(count($flag) > 0) {
+        if (count($flag) > 0) {
             /** @var Flag $flag */
             $flag = $flag[0];
-            if($flag->getTrue()) {
+            if ($flag->getTrue()) {
                 return self::CAMERINO_INIZIALIZZATO;
             } else {
                 return self::CAMERINO_NUOVO_CAPO;
