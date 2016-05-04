@@ -5,10 +5,14 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Articolo;
 use AppBundle\Entity\ArticoloProvato;
 use AppBundle\Entity\Flag;
+use AppBundle\Entity\Task;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class CamerinoController
@@ -19,6 +23,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class CamerinoController extends BaseController
 {
+    const CAMERINO_VUOTO = 1;
+    const CAMERINO_INIZIALIZZATO = 2;
+    const CAMERINO_NUOVO_CAPO = 3;
+
     /**
      * @Route(name="app_camerino_index")
      */
@@ -134,5 +142,118 @@ class CamerinoController extends BaseController
         }
 
         return new JsonResponse(["success" => true], 200);
+    }
+
+    /**
+     * @param $id
+     *
+     * @return JsonResponse
+     *
+     * @Route("/dress/{id}/request", name="app_camerino_richiedi_articolo")
+     */
+    public function setTaskAction($id) {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $articolo = $em->getRepository("AppBundle:Articolo")
+            ->find($id);
+        if($articolo == null) {
+            return new JsonResponse(["success" => false], 404);
+        }
+
+        $task = new Task();
+        $task->setArticolo($articolo)
+            ->setCamerino("Camerino 1");
+        $em->persist($task);
+        $em->flush();
+
+        return new JsonResponse(["success" => true], 200);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/task/list", name="app_camerino_task_list")
+     */
+    public function getUnservedTaskAction() {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Task[] $tasks */
+        $tasks = $em->getRepository("AppBundle:Task")
+            ->findBy(['messaggio' => null]);
+        return $this->jsonResponse($this->serialize($tasks));
+    }
+
+
+    public function serveTaskAction(Request $request, $id) {
+        
+    }
+
+    /**
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/dress/list", name="app_camerino_list_dresses")
+     */
+    public function getCapiInCamerinoAction() {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        // @TODO Cambiare gli id dei capi
+        /** @var Articolo[] $articoli */
+        $articoli = [];
+
+        $articoli[] = $em->getRepository("AppBundle:Articolo")->find(1);
+        $articoli[] = $em->getRepository("AppBundle:Articolo")->find(2);
+        $articoli[] = $em->getRepository("AppBundle:Articolo")->find(3);
+
+        switch ($this->getCamerinoStatus()) {
+            case self::CAMERINO_VUOTO: {
+                $response = new JsonResponse([], 200);
+                break;
+            }
+            case self::CAMERINO_INIZIALIZZATO: {
+                $response = $this->jsonResponse($this->serialize($articoli));
+                break;
+            }
+            case self::CAMERINO_NUOVO_CAPO: {
+                $qb = $em->getRepository("AppBundle:Task")
+                    ->createQueryBuilder('t');
+                $qb->where('t.messaggio IS NOT NULL');
+                /** @var Task[] $task */
+                $task = $qb->getQuery()->getResult();
+
+                if(count($task) > 0) {
+                    /** @var Task $task */
+                    $task = $task[0];
+                    $articoli[] = $task->getArticolo();
+                    $em->remove($task);
+                    $em->flush();
+                }
+                $response = $this->jsonResponse($this->serialize($articoli));
+                break;
+            }
+            default: {
+                $response = new JsonResponse([], 200);
+            }
+        }
+        return $response;
+    }
+
+    private function getCamerinoStatus() {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $flag = $em->getRepository("AppBundle:Flag")->findAll();
+        if(count($flag) > 0) {
+            /** @var Flag $flag */
+            $flag = $flag[0];
+            if($flag->getTrue()) {
+                return self::CAMERINO_INIZIALIZZATO;
+            } else {
+                return self::CAMERINO_NUOVO_CAPO;
+            }
+        } else {
+            return self::CAMERINO_VUOTO;
+        }
     }
 }

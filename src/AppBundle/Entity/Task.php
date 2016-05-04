@@ -35,7 +35,7 @@ class Task
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=250)
+     * @ORM\Column(type="string", length=250, nullable=true)
      */
     private $messaggio;
 
