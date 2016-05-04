@@ -34,10 +34,10 @@ class Task
     private $camerino;
 
     /**
-     * @var boolean
-     * @ORM\Column(type="boolean")
+     * @var string
+     * @ORM\Column(type="string", length=250)
      */
-    private $inElaborazione;
+    private $messaggio;
 
     /**
      * Get id
@@ -71,30 +71,6 @@ class Task
     public function getCamerino()
     {
         return $this->camerino;
-    }
-
-    /**
-     * Set inElaborazione
-     *
-     * @param boolean $inElaborazione
-     *
-     * @return Task
-     */
-    public function setInElaborazione($inElaborazione)
-    {
-        $this->inElaborazione = $inElaborazione;
-
-        return $this;
-    }
-
-    /**
-     * Get inElaborazione
-     *
-     * @return boolean
-     */
-    public function getInElaborazione()
-    {
-        return $this->inElaborazione;
     }
 
     /**

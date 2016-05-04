@@ -5,10 +5,17 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class CamerinoController
+ *
+ * @package AppBundle\Controller
+ *
+ * @Route("/camerino")
+ */
 class CamerinoController extends Controller
 {
     /**
-     * @Route("/camerino")
+     * @Route(name="app_camerino_index")
      */
     public function indexAction()
     {
@@ -17,4 +24,10 @@ class CamerinoController extends Controller
         ));
     }
 
+    /**
+     * @Route("/dress/add", name="app_camerino_dress_add")
+     */
+    public function enterDressAction() {
+        
+    }
 }
