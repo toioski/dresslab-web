@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -31,5 +32,12 @@ class BaseController extends Controller
 
     protected function serialize($object) {
         return $this->serializer->serialize($object, 'json');
+    }
+    
+    protected function jsonResponse($json) {
+        $response = new Response();
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent($json);
+        return $response;
     }
 }

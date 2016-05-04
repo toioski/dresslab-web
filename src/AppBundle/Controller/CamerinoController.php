@@ -33,8 +33,7 @@ class CamerinoController extends BaseController
         $articolo = $em->getRepository("AppBundle:Articolo")
             ->find($id);
 
-        var_dump($this->serialize($articolo, 'json'));
-        die();
+        return $this->jsonResponse($this->serialize($articolo));
     }
 
     /**
