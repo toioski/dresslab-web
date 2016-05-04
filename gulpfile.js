@@ -129,8 +129,8 @@ gulp.task('watch', function () {
 gulp.task('db', shell.task([
     './bin/console doctrine:schema:drop --dump-sql',
     './bin/console doctrine:schema:drop --force',
-    './bin/console doctrine:schema:create'
-    // './bin/console doctrine:fixtures:load --fixtures=src/Wescape/CoreBundle/DataFixtures/ORM/SetupCredentials.php'
+    './bin/console doctrine:schema:create',
+    './bin/console doctrine:fixtures:load --fixtures=src/AppBundle/DataFixtures/ORM'
 ]));
 
 // Task composti
