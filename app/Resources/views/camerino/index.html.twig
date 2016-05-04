@@ -1,26 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends ':camerino:layout.html.twig' %}
 
-{% block body %}
-    {% include 'navbar.html.twig' %}
-    <div class="riepilogo-capi">
-        <div class="wrap">
-            <div class="numero-capi">3</div>
-            <div class="title">Capi nel camerino</div>
-        </div>
-    </div>
-    <div class="content-wrapper">
-        {% include 'sidebar.html.twig' %}
-        {% verbatim %}
+{% block content %}
+    {% verbatim %}
         <div class="guardaroba" ng-controller="GuardarobaController as guardaroba">
             <header>Il mio guardaroba</header>
             <main>
                 <pre>{{ guardaroba.data }}</pre>
                 <div class="dress-card-wrapper" ng-repeat="card in [0,1,2,3]">
-                    <dress-card description="ctrl.prova"></dress-card>
+                    <dress-card description="guardaroba.data.count"></dress-card>
                 </div>
                 <div class="clearfix"></div>
             </main>
         </div>
         {% endverbatim %}
-    </div>
 {% endblock %}

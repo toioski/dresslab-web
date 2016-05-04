@@ -1,13 +1,5 @@
 .guardaroba {
-    position: fixed;
-    left: 0;
-    top: $navbar-height;
-    bottom: 0;
-    right: $sidebar-width;
-    background-color: $color-sfondo;
-    overflow: scroll;
-    padding: 30px;
-    color: $color-testo-principale;
+    @include content-wrapper();
 
     header {
         font-size: 40px;

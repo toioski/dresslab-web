@@ -1,0 +1,91 @@
+.dress-detail {
+    @include content-wrapper();
+
+    .back-button {
+        $size: 80px;
+        display: inline-block;
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+        border: 2px solid $color-testo-principale;
+        text-align: center;
+        color: $color-testo-principale;
+        line-height: $size;
+        font-size: 14px;
+        text-transform: uppercase;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .detail-container {
+        margin-top: 20px;
+    }
+
+    .actions-container {
+        text-align: center;
+        margin-right: -30px;
+        margin-left: $dress-card-width;
+        padding: 60px 40px;
+        .actions-wrapper {
+            width: 400px;
+            margin: 0 auto;
+        }
+    }
+
+    .action {
+        text-align: center;
+        .description {
+            margin-bottom: 10px;
+        }
+    }
+
+    .btn-dl-circle {
+        $size: 80px;
+        width: $size;
+        height: $size;
+        border: 2px solid $color-arancione-primario;
+        line-height: 60px;
+        font-size: 30px;
+        border-radius: 50%;
+        color: $color-arancione-primario;
+        background-color: transparent;
+    }
+
+    .btn-dl-material {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        border-radius: 60px;
+        background-color: #fff;
+        color: #646464;
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 20px;
+        line-height: 24px;
+        box-shadow: 0 4px 3px rgba(0,0,0,.2);
+        padding: 10px 40px;
+        transition: $standard-link-transition;
+        &:hover {
+            box-shadow: 0 6px 6px rgba(0,0,0,.3);
+        }
+
+
+        &.orange {
+            background-color: $color-arancione-primario;
+            color: #fff;
+        }
+    }
+
+    .suggerimenti {
+        padding-top: 20px;
+        .title {
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+        .description {
+            font-size: 16px;
+        }
+    }
+}

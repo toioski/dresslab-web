@@ -1,0 +1,60 @@
+{% extends ':camerino:layout.html.twig' %}
+
+{% block content %}
+    <div class="dress-detail">
+        <a class="back-button" href="{{ path('app_camerino_index') }}">Indietro</a>
+        <section class="detail-container">
+            <div class="dress-card pull-left">
+                <div class="dress-container">
+                    <img class="dress-image" src="{{ path_immagine }}">
+                    <div class="dress-head">
+                        <div class="dress-brand pull-left">Alpha Studio</div>
+                        <div class="dress-price pull-right">€ {{ articolo.prezzo }}</div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="dress-description">{{ articolo.prodotto.nome }}</div>
+                </div>
+            </div>
+            <div class="actions-container">
+                <div class="actions-wrapper">
+                    <div class="action col-sm-6">
+                        <div class="description">Clicca per le taglie</div>
+                        <button class="btn-dl-circle">S</button>
+                    </div>
+                    <div class="action col-sm-6">
+                        <div class="description">Clicca per le taglie</div>
+                        <button class="btn-dl-circle">S</button>
+                    </div>
+                    <div class="btn-dl-material orange" style="margin-top: 100px; width: 100%;">Richiedi questo</div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </section>
+        <div class="divider grey" style="margin-top: 30px"></div>
+        <section class="suggerimenti">
+            <header>
+                <div class="title">Suggerimenti</div>
+                <div class="description">Ecco alcuni suggerimenti basati sugli acquisti di altri clienti</div>
+            </header>
+            <div class="suggerimenti-container">
+                {# @TODO implementare vendutiInsieme #}
+                {% for art in articolo.prodotto.vendutiInsieme %}
+                    <div class="dress-card-wrapper">
+                        <div class="dress-card">
+                            <div class="dress-container">
+                                <img class="dress-image" src="{{ path_immagine }}">
+                                <div class="dress-head">
+                                    <div class="dress-brand pull-left">Alpha Studio</div>
+                                    <div class="dress-price pull-right">€ {{ art.prezzo }}</div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="dress-description">{{ art.prodotto.nome }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="clearfix"></div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

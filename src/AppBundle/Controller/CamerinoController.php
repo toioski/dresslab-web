@@ -22,15 +22,36 @@ class CamerinoController extends BaseController
     /**
      * @Route(name="app_camerino_index")
      */
-    public function indexAction()
-    {
-        return $this->render('camerino/index.html.twig', array(
-            // ...
+    public function indexAction() {
+        return $this->render('camerino/index.html.twig', array(// ...
         ));
     }
-
+    
+    /**
+     * @Route("/dress/{id}", name="app_camerino_dress_detail")
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function dressDetailAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        /** @var Articolo $articolo */
+        $articolo = $em->getRepository("AppBundle:Articolo")
+            ->find($id);
+        
+        $path = '/assets/images/vestiti/capo_' . $articolo->getId() . '.jpg';
+        
+        return $this->render('camerino/detail.html.twig', array(
+            "articolo"      => $articolo,
+            "path_immagine" => $this->get('assets.packages')->getUrl($path)
+        ));
+    }
+    
     /**
      * @Route("/dress/add/{id}", name="app_camerino_dress_add")
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function enterDressAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -42,15 +63,16 @@ class CamerinoController extends BaseController
         $articoliProvati = $em->getRepository("AppBundle:ArticoloProvato")
             ->findBy([
                 "articolo" => $articolo->getId(),
-                "data" => new \DateTime("now")
+                "data"     => new \DateTime("now")
             ]);
 
-        if(count($articoliProvati) == 0) {
+        if (count($articoliProvati) == 0) {
             $articoloProvato = new ArticoloProvato();
             $articoloProvato->setArticolo($articolo)
                 ->setQuantitaProvati(1)
                 ->setData(new \DateTime("now"));
-            var_dump("vuoto"); die();
+            var_dump("vuoto");
+            die();
         } else {
             $articoloProvato = $articoliProvati[0];
             $articoloProvato->setQuantitaProvati(
@@ -69,7 +91,7 @@ class CamerinoController extends BaseController
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $tasks = $em->getRepository("AppBundle:Task")->findBy(["messaggio" => null]);
+        $tasks = $em->getRepository("AppBundle:Task")->findBy(["messaggio" => NULL]);
         return $this->jsonResponse($this->serialize($tasks));
     }
 
@@ -85,13 +107,13 @@ class CamerinoController extends BaseController
         /** @var Flag[] $flag */
         $flag = $em->getRepository("AppBundle:Flag")
             ->findAll();
-        if(count($flag) == 0) {
+        if (count($flag) == 0) {
             $flag = new Flag();
-            $flag->setTrue(true);
+            $flag->setTrue(TRUE);
         } else {
             /** @var Flag $flag */
             $flag = $flag[0];
-            $flag->setTrue(! $flag->getTrue());
+            $flag->setTrue(!$flag->getTrue());
         }
         $em->persist($flag);
         $em->flush();
@@ -106,13 +128,13 @@ class CamerinoController extends BaseController
         $em = $this->getDoctrine()->getManager();
 
         $flag = $em->getRepository("AppBundle:Flag")->findAll();
-        if(count($flag) > 0) {
+        if (count($flag) > 0) {
             foreach ($flag as $f) {
                 $em->remove($f);
             }
             $em->flush();
         }
 
-        return new JsonResponse(["success" => true], 200);
+        return new JsonResponse(["success" => TRUE], 200);
     }
 }
