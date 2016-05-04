@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Articolo;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  *
  * @Route("/camerino")
  */
-class CamerinoController extends Controller
+class CamerinoController extends BaseController
 {
     /**
      * @Route(name="app_camerino_index")
@@ -25,9 +25,22 @@ class CamerinoController extends Controller
     }
 
     /**
-     * @Route("/dress/add", name="app_camerino_dress_add")
+     * @Route("/dress/add/{id}", name="app_camerino_dress_add")
      */
-    public function enterDressAction() {
+    public function enterDressAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        /** @var Articolo $articolo */
+        $articolo = $em->getRepository("AppBundle:Articolo")
+            ->find($id);
+
+        var_dump($this->serialize($articolo, 'json'));
+        die();
+    }
+
+    /**
+     * @Route("/task/list", name="app_camerino_get_tasks")
+     */
+    public function getTasks() {
         
     }
 }

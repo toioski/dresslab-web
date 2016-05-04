@@ -31,12 +31,6 @@ class Articolo
      * @var string
      * @ORM\Column(type="string")
      */
-    private $rfid;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string")
-     */
     private $colore;
 
     /**
@@ -83,30 +77,6 @@ class Articolo
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set rfid
-     *
-     * @param string $rfid
-     *
-     * @return Articolo
-     */
-    public function setRfid($rfid)
-    {
-        $this->rfid = $rfid;
-
-        return $this;
-    }
-
-    /**
-     * Get rfid
-     *
-     * @return string
-     */
-    public function getRfid()
-    {
-        return $this->rfid;
     }
 
     /**
