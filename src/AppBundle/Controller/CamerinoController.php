@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Articolo;
+use AppBundle\Entity\ArticoloProvato;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -32,6 +33,27 @@ class CamerinoController extends BaseController
         /** @var Articolo $articolo */
         $articolo = $em->getRepository("AppBundle:Articolo")
             ->find($id);
+
+        /** @var ArticoloProvato[] $articoliProvati */
+        $articoliProvati = $em->getRepository("AppBundle:ArticoloProvato")
+            ->findBy([
+                "articolo" => $articolo->getId(),
+                "data" => new \DateTime("now")
+            ]);
+
+        if(count($articoliProvati) == 0) {
+            $articoloProvato = new ArticoloProvato();
+            $articoloProvato->setArticolo($articolo)
+                ->setQuantitaProvati(1)
+                ->setData(new \DateTime("now"));
+            var_dump("vuoto"); die();
+        } else {
+            $articoloProvato = $articoliProvati[0];
+            $articoloProvato->setQuantitaProvati(
+                $articoloProvato->getQuantitaProvati() + 1);
+        }
+        $em->persist($articoloProvato);
+        $em->flush();
 
         return $this->jsonResponse($this->serialize($articolo));
     }

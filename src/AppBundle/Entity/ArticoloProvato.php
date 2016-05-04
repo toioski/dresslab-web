@@ -32,17 +32,17 @@ class ArticoloProvato
      * @var integer
      * @ORM\Column(type="integer")
      */
-    private $quantitaProvati;
+    private $quantitaProvati = 0;
 
     /**
      * @var integer
      * @ORM\Column(type="integer")
      */
-    private $quantitaAcquistati;
+    private $quantitaAcquistati = 0;
 
     /**
      * @var \DateTime
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $data;
 
