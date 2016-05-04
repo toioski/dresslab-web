@@ -1,0 +1,9 @@
+.guardaroba {
+    position: fixed;
+    left: 0;
+    top: $navbar-height;
+    bottom: 0;
+    right: $sidebar-width;
+    background-color: $color-sfondo;
+    overflow: scroll;
+}

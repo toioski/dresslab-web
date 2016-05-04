@@ -1,0 +1,28 @@
+.dl-navbar {
+    position: relative;
+    padding: 15px 30px;
+    border-bottom: 1px solid $color-bordo;
+    background-color: white;
+
+    .navbar-logo {
+        position: absolute;
+        left: 50%;
+        margin-left: -144px;
+        top: 15px;
+        display: inline-block;
+    }
+
+    .richieste {
+        color: $color-testo-principale;
+        font-size: 18px;
+        text-decoration: none;
+        display: inline-block;
+        transition: $standard-link-transition;
+        &:hover {
+            color: $color-arancione-primario;
+        }
+        .text {
+            margin-right: 10px;
+        }
+    }
+}

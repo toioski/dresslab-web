@@ -108,7 +108,7 @@ gulp.task('images', function () {
 
     pipeline.add([
         config.path.frontendAssets + '/images/**/*'
-    ], config.path.public + '/assets/images/backend');
+    ], config.path.public + '/assets/images');
 
     return pipeline.run(app.copy);
 });
