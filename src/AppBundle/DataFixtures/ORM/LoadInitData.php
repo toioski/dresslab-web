@@ -438,10 +438,10 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
 
         /**
-         * tajer
+         * TAILLEUR
          */
         $prodotto = new Prodotto();
-        $prodotto->setNome("Tajer");
+        $prodotto->setNome("Tailleur");
         $manager->persist($prodotto);
 
         $articolo = new Articolo();
@@ -514,42 +514,7 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setQuantita(3);
         $manager->persist($articolo);
 
-        /**
-         * Maglia
-         */
-        $prodotto = new Prodotto();
-        $prodotto->setNome("Maglia");
-        $manager->persist($prodotto);
 
-        $articolo = new Articolo();
-        $articolo->setProdotto($prodotto)
-            ->setColore("Rosa")
-            ->setColoreHex("#ffd2e8")
-            ->setPosizione("Settore D1")
-            ->setTaglia("S")
-            ->setPrezzo(29.00)
-            ->setQuantita(8);
-        $manager->persist($articolo);
-
-        $articolo = new Articolo();
-        $articolo->setProdotto($prodotto)
-            ->setColore("beige")
-            ->setColoreHex("#E6DAA6")
-            ->setPosizione("Settore D1")
-            ->setTaglia("M")
-            ->setPrezzo(29.00)
-            ->setQuantita(1);
-        $manager->persist($articolo);
-
-        $articolo = new Articolo();
-        $articolo->setProdotto($prodotto)
-            ->setColore("beige")
-            ->setColoreHex("#E6DAA6")
-            ->setPosizione("Settore D1")
-            ->setTaglia("L")
-            ->setPrezzo(29.00)
-            ->setQuantita(4);
-        $manager->persist($articolo);
 
         /**
          * Cardigan
