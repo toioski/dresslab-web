@@ -85,7 +85,9 @@ gulp.task('scripts', ['styles'], function () {
 
     pipeline.add([
         config.path.bower + '/jquery/dist/jquery.js',
-        config.path.bower + '/angular/angular.js'
+        config.path.bower + '/angular/angular.js',
+        config.path.bower + '/angular-poller/angular-poller.js',
+        config.path.bower + '/angular-resource/angular-resource.js'
     ], 'frontend-deps.js');
 
     pipeline.add([

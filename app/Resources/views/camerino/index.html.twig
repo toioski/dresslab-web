@@ -5,8 +5,12 @@
         <div class="guardaroba" ng-controller="GuardarobaController as guardaroba">
             <header>Il mio guardaroba</header>
             <main>
-                <div class="dress-card-wrapper" ng-repeat="card in [0,1,2,3]">
-                    <dress-card description="guardaroba.data.count"></dress-card>
+                <div class="dress-card-wrapper" ng-repeat="vestito in guardaroba.vestiti">
+                    <dress-card id="vestito.id"
+                     price="vestito.prezzo"
+                     size="vestito.taglia"
+                     description="vestito.prodotto.nome"
+                     color="vestito.coloreHex"></dress-card>
                 </div>
                 <div class="clearfix"></div>
             </main>

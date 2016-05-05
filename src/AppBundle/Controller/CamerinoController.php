@@ -33,7 +33,7 @@ class CamerinoController extends BaseController
     }
     
     /**
-     * @Route("/dress/{id}", name="app_camerino_dress_detail")
+     * @Route("/dress/{id}", name="app_camerino_dress_detail", requirements={"id":"\d+"})
      * @param $id
      *
      * @return \Symfony\Component\HttpFoundation\Response

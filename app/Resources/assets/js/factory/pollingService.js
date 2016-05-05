@@ -4,8 +4,8 @@
         var count = 0;
         var poller = function () {
             count++;
-            $http.get('/template/test').then(function (r) {
-
+            $http.get('/camerino/dress/list').then(function (r) {
+                console.log(r);
                 data.resp = r.data;
                 data.count = count;
                 console.log(data);
