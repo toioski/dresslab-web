@@ -17,6 +17,7 @@
         // poller only gets notified of success responses.
         myPoller.promise.then(null, null, function (result) {
             $this.vestiti = result;
+            $('#number-capi').text(result.length);
             console.log(result);
         });
     }
