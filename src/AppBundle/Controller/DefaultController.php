@@ -59,7 +59,7 @@ class DefaultController extends BaseController
 
         $response = new Response();
         $response->headers->set("Content-Type", "image/jpg");
-        $response->setContent($content);
+        $response->setContent(base64_encode($content));
         return $response;
     }
 }
