@@ -57,8 +57,6 @@
 
             $('#number-capi').text(result.length);
             console.log(result);
-            //@TODO togliere PORCODIOOO
-            myPoller.stop();
         });
 
         this.openRequest = function(){
