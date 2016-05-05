@@ -11,8 +11,8 @@
         this.id = parts[parts.length - 1];
         this.options = {sizes: [], colors: []};
 
-        var tagliaResource = $resource('/camerino/dress/' + this.id + '/taglie');
-        var coloreResource = $resource('/camerino/dress/' + this.id + '/colori');
+        // var tagliaResource = $resource('/camerino/dress/' + this.id + '/taglie');
+        // var coloreResource = $resource('/camerino/dress/' + this.id + '/colori');
 
         this.toggleRichiesta = function () {
             $this.loading = true;
@@ -40,6 +40,11 @@
                 console.log("valore: " + $this.id);
                 return value.id == $this.id;
             });
+
+            $this.product_id = articoloCorrente[0].prodotto.id;
+
+            var tagliaResource = $resource('/camerino/dress/' + $this.product_id + '/taglie');
+            var coloreResource = $resource('/camerino/dress/' + $this.product_id + '/colori');
             $this.tagliaCorrente = articoloCorrente[0].taglia;
             $this.coloreCorrente = articoloCorrente[0].colore;
             console.log("taglia corrente: " + $this.tagliaCorrente);
@@ -75,7 +80,7 @@
         });
 
         this.openRequest = function(){
-            var id = $this.id;
+            var id = $this.product_id;
             var taglia = $this.taglia;
             var colore = $this.colore;
             var requestResource = $resource('/camerino/product/'+ id + '/taglia/' + taglia + '/colore/' + colore.colore);
