@@ -61,6 +61,18 @@
             myPoller.stop();
         });
 
+        this.openRequest = function(){
+            var id = $this.id;
+            var taglia = $this.taglia;
+            var colore = $this.colore;
+            var requestResource = $resource('/camerino/product/'+ id + '/taglia/' + taglia + '/colore/' + colore);
+
+            requestResource.save(function(){
+                console.log("chiamata POST fatta");
+                $this.toggleRichiesta();
+            });
+        }
+
     }
 
     angular.module('dresslab')
