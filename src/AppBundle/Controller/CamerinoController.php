@@ -175,6 +175,9 @@ class CamerinoController extends BaseController
             }
             $em->flush();
         }
+        $tasks = $em->getRepository("AppBundle:Task")
+            ->findAll();
+        $em->remove($tasks);
 
         return new JsonResponse(["success" => TRUE], 200);
     }
@@ -366,6 +369,39 @@ class CamerinoController extends BaseController
             return new JsonResponse(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
+    
+    /**
+     * @return JsonResponse
+     * @Route("/getlasttaskmessage")
+     */
+    public function getMessagedTask() {
+        try {
+            /** @var EntityManager $em */
+            $em = $this->getDoctrine()->getManager();
+    
+            $qb = $em->getRepository("AppBundle:Task")
+                ->createQueryBuilder('t');
+            $qb->where('t.messaggio IS NOT NULL');
+    
+            /** @var Task[] $tasks */
+            $tasks = $qb->getQuery()->getResult();
+            if (count($tasks) > 0) {
+                return new JsonResponse([
+                    "success" => TRUE,
+                    "message" => $tasks[0]->getMessaggio()
+                ]);
+            } else {
+                return new JsonResponse([
+                    'success' => FALSE
+                ]);
+            }
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'success' => false, 
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 
     /**
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
@@ -379,9 +415,9 @@ class CamerinoController extends BaseController
         /** @var Articolo[] $articoli */
         $articoli = [];
 
-        $articoli[] = $em->getRepository("AppBundle:Articolo")->find(1);
-        $articoli[] = $em->getRepository("AppBundle:Articolo")->find(2);
-        $articoli[] = $em->getRepository("AppBundle:Articolo")->find(3);
+        $articoli[] = $em->getRepository("AppBundle:Articolo")->find(21);
+        $articoli[] = $em->getRepository("AppBundle:Articolo")->find(10);
+        $articoli[] = $em->getRepository("AppBundle:Articolo")->find(29);
 
         switch ($this->getCamerinoStatus()) {
             case self::CAMERINO_VUOTO: {
@@ -403,8 +439,8 @@ class CamerinoController extends BaseController
                     /** @var Task $task */
                     $task = $task[0];
                     $articoli[] = $task->getArticolo();
-                    $em->remove($task);
-                    $em->flush();
+                    //$em->remove($task);
+                    //$em->flush();
                 }
                 $response = $this->jsonResponse($this->articoliSerializer($articoli));
                 break;

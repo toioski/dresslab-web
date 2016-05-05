@@ -420,6 +420,7 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
         $prodotto = new Prodotto();
         $prodotto->setNome("Cappotto");
         $manager->persist($prodotto);
+        $this->setReference('cappotto', $prodotto);
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
@@ -428,8 +429,7 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPosizione("Settore C5")
             ->setTaglia("S")
             ->setPrezzo(79.00)
-            ->setQuantita(5)
-            ->setVetrina(true);
+            ->setQuantita(5);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
@@ -449,7 +449,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPosizione("Settore C5")
             ->setTaglia("L")
             ->setPrezzo(79.00)
-            ->setQuantita(3);
+            ->setQuantita(3)
+            ->setVetrina(true);
         $manager->persist($articolo);
 
         /**

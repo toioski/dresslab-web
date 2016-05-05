@@ -24,7 +24,7 @@ class ProdottoVendutoInsieme
     protected $id;
     /**
      * @var Prodotto
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Prodotto")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Prodotto")
      */
     private $prodotto;
 

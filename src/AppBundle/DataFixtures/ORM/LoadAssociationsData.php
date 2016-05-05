@@ -21,11 +21,12 @@ class LoadAssociationsData extends AbstractFixture implements FixtureInterface, 
 {
     public function load(ObjectManager $manager) {
         /** @var Prodotto $prodotto */
-        $prodotto = $this->getReference('maglioncino');
+        $prodotto = $this->getReference('tshirt');
         /** @var Prodotto[] $insieme */
         $insieme = [];
         $insieme[] = $this->getReference('pantaloni');
         $insieme[] = $this->getReference('scarpe');
+        $insieme[] = $this->getReference('cappotto');
         foreach ($insieme as $prodottoInsieme) {
             $prodottoVendutoInsieme = new ProdottoVendutoInsieme();
             $prodottoVendutoInsieme->setProdotto($prodottoInsieme);
@@ -36,6 +37,61 @@ class LoadAssociationsData extends AbstractFixture implements FixtureInterface, 
             $manager->persist($prodottoVendutoInsieme);
         }
         $manager->persist($prodotto);
+    
+        /** @var Prodotto $prodotto */
+        $prodotto = $this->getReference('pantaloni');
+        /** @var Prodotto[] $insieme */
+        $insieme = [];
+        $insieme[] = $this->getReference('tshirt');
+        $insieme[] = $this->getReference('scarpe');
+        $insieme[] = $this->getReference('cappotto');
+        foreach ($insieme as $prodottoInsieme) {
+            $prodottoVendutoInsieme = new ProdottoVendutoInsieme();
+            $prodottoVendutoInsieme->setProdotto($prodottoInsieme);
+            $prodottoVendutoInsieme->setFrequenza(10);
+            $prodottoVendutoInsieme->setVendutoCon($prodotto);
+            $prodotto->addVendutiInsieme($prodottoVendutoInsieme);
+        
+            $manager->persist($prodottoVendutoInsieme);
+        }
+        $manager->persist($prodotto);
+    
+        /** @var Prodotto $prodotto */
+        $prodotto = $this->getReference('scarpe');
+        /** @var Prodotto[] $insieme */
+        $insieme = [];
+        $insieme[] = $this->getReference('pantaloni');
+        $insieme[] = $this->getReference('tshirt');
+        $insieme[] = $this->getReference('cappotto');
+        foreach ($insieme as $prodottoInsieme) {
+            $prodottoVendutoInsieme = new ProdottoVendutoInsieme();
+            $prodottoVendutoInsieme->setProdotto($prodottoInsieme);
+            $prodottoVendutoInsieme->setFrequenza(10);
+            $prodottoVendutoInsieme->setVendutoCon($prodotto);
+            $prodotto->addVendutiInsieme($prodottoVendutoInsieme);
+        
+            $manager->persist($prodottoVendutoInsieme);
+        }
+        $manager->persist($prodotto);
+    
+        /** @var Prodotto $prodotto */
+        $prodotto = $this->getReference('cappotto');
+        /** @var Prodotto[] $insieme */
+        $insieme = [];
+        $insieme[] = $this->getReference('pantaloni');
+        $insieme[] = $this->getReference('tshirt');
+        $insieme[] = $this->getReference('scarpe');
+        foreach ($insieme as $prodottoInsieme) {
+            $prodottoVendutoInsieme = new ProdottoVendutoInsieme();
+            $prodottoVendutoInsieme->setProdotto($prodottoInsieme);
+            $prodottoVendutoInsieme->setFrequenza(10);
+            $prodottoVendutoInsieme->setVendutoCon($prodotto);
+            $prodotto->addVendutiInsieme($prodottoVendutoInsieme);
+        
+            $manager->persist($prodottoVendutoInsieme);
+        }
+        $manager->persist($prodotto);
+        
         $manager->flush();
     }
 

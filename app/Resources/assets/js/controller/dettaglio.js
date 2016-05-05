@@ -57,6 +57,21 @@
 
             $('#number-capi').text(result.length);
             console.log(result);
+            myPoller.stop();
+        });
+
+        //@TODO: poller messaggio
+        this.messaggioArrivato = false;
+        var messaggioCommessaResource = $resource('/camerino/getlasttaskmessage');
+
+        // Get poller. This also starts/restarts poller.
+        var commessaPoller = poller.get(messaggioCommessaResource);
+
+        commessaPoller.promise.then(null, null, function (result) {
+            if(result.success) {
+                $this.messaggioArrivato = true;
+                $this.messaggioCommessa = result.message;
+            }
         });
 
         this.openRequest = function(){
@@ -66,7 +81,7 @@
             var requestResource = $resource('/camerino/product/'+ id + '/taglia/' + taglia + '/colore/' + colore.colore);
 
             requestResource.get(function(result){
-                console.log("chiamata POST fatta: " + result);
+                console.log("chiamata POST fatta: ", result);
                 if (result.success) {
                     $this.toggleRichiesta();
                 } else {
