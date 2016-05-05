@@ -21,12 +21,24 @@
                     <i class="fa fa-circle-o-notch fa-spin loader" ng-show="dettaglio.loading"></i>
                     <div class="actions-wrapper" ng-show="!dettaglio.richiesta && !dettaglio.loading">
                         <div class="action col-sm-6">
-                            <div class="description">Clicca per le taglie</div>
-                            <button class="btn-dl-circle">S</button>
+                            <div class="description">Cambia taglie</div>
+                            {% verbatim %}
+                            <ol id="dynamic-options" class="nya-bs-select custom-select" ng-model="dettaglio.taglia">
+                                <li nya-bs-option="option in dettaglio.options.sizes">
+                                    <a>{{ option }}</a>
+                                </li>
+                            </ol>
+                            {% endverbatim %}
                         </div>
                         <div class="action col-sm-6">
-                            <div class="description">Clicca per le taglie</div>
-                            <button class="btn-dl-circle">S</button>
+                            <div class="description">Cambia colore</div>
+                            {% verbatim %}
+                            <ol id="dynamic-options" class="nya-bs-select custom-select" ng-model="dettaglio.colore">
+                                <li nya-bs-option="option in dettaglio.options.colors">
+                                    <a>{{ option.colore }}</a>
+                                </li>
+                            </ol>
+                            {% endverbatim %}
                         </div>
                         <div ng-click="dettaglio.toggleRichiesta()" class="btn-dl-material orange"
                              style="margin-top: 100px; width: 100%;">Richiedi questo

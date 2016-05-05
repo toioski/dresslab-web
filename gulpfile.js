@@ -87,7 +87,8 @@ gulp.task('scripts', ['styles'], function () {
         config.path.bower + '/jquery/dist/jquery.js',
         config.path.bower + '/angular/angular.js',
         config.path.bower + '/angular-poller/angular-poller.js',
-        config.path.bower + '/angular-resource/angular-resource.js'
+        config.path.bower + '/angular-resource/angular-resource.js',
+        config.path.bower + '/nya-bootstrap-select/dist/js/nya-bs-select.js'
     ], 'frontend-deps.js');
 
     pipeline.add([
@@ -101,6 +102,13 @@ gulp.task('fonts', ['clean'], function () {
     return app.copy(
         config.path.bower + '/font-awesome/fonts/*',
         config.path.public + '/assets/fonts'
+    );
+});
+
+gulp.task('select', function() {
+    return app.copy(
+        config.path.bower + '/nya-bootstrap-select/dist/css/nya-bs-select.min.css',
+        config.path.public + '/assets/css'
     );
 });
 
@@ -135,6 +143,6 @@ gulp.task('db', shell.task([
 ]));
 
 // Task composti
-gulp.task('default', ['clean', 'styles', 'scripts', 'fonts', 'images', 'watch', 'db']);
+gulp.task('default', ['clean', 'styles', 'select', 'scripts', 'fonts', 'images', 'watch', 'db']);
 
-gulp.task('build:production', ['clean', 'styles', 'scripts', 'fonts', 'images', 'db']);
+gulp.task('build:production', ['clean', 'styles', 'select', 'scripts', 'fonts', 'images', 'db']);

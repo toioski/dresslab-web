@@ -28,6 +28,11 @@
         margin-right: -30px;
         margin-left: $dress-card-width;
         padding: 30px 40px;
+
+        .custom-select {
+            width: 170px !important;
+        }
+
         .actions-wrapper {
             width: 400px;
             margin: 0 auto;
