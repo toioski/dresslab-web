@@ -1,8 +1,19 @@
 (function () {
-    function GuardarobaController($resource, poller) {
+    function DettaglioController($timeout, $resource, poller) {
         var $this = this;
         this.vestiti = {};
         this.image = {};
+        this.richiesta = true;
+        this.loading = false;
+
+        this.toggleRichiesta = function () {
+            console.log("dio porco");
+            $this.loading = true;
+            $timeout(function() {
+                $this.loading = false;
+                $this.richiesta = !$this.richiesta;
+            }, 400);
+        };
         // Define your resource object.
         var myResource = $resource('/camerino/dress/list');
 
@@ -20,10 +31,11 @@
             $('#number-capi').text(result.length);
             console.log(result);
             //@TODO togliere PORCODIOOO
-            //myPoller.stop();
+            myPoller.stop();
         });
+
     }
 
     angular.module('dresslab')
-        .controller('GuardarobaController', ['$resource', 'poller', GuardarobaController]);
+        .controller('DettaglioController', ['$timeout', '$resource', 'poller', DettaglioController]);
 })();

@@ -8,11 +8,16 @@
                 description:'=',
                 price: '=',
                 size: '=',
-                color: '='
+                color: '=',
+                image: '='
             },
             templateUrl: '/template/dresscard',
             link: function(scope, element) {
-                console.log("dresscard");
+                element.click(function(e) {
+                    console.log(scope.id);
+                    e.preventDefault();
+                    window.location.href = "/camerino/dress/" + scope.id;
+                })
             }
         };
     }

@@ -1,0 +1,45 @@
+.btn-dl-orange {
+    color: #FFFFFF;
+    background-color: #FF8176;
+    border-color: #FF8176;
+}
+
+.btn-dl-orange:hover,
+.btn-dl-orange:focus,
+.btn-dl-orange:active,
+.btn-dl-orange.active,
+.open .dropdown-toggle.btn-dl-orange {
+    color: #FFFFFF;
+    background-color: #E8685D;
+    border-color: #FF8176;
+}
+
+.btn-dl-orange:active,
+.btn-dl-orange.active,
+.open .dropdown-toggle.btn-dl-orange {
+    background-image: none;
+}
+
+.btn-dl-orange.disabled,
+.btn-dl-orange[disabled],
+fieldset[disabled] .btn-dl-orange,
+.btn-dl-orange.disabled:hover,
+.btn-dl-orange[disabled]:hover,
+fieldset[disabled] .btn-dl-orange:hover,
+.btn-dl-orange.disabled:focus,
+.btn-dl-orange[disabled]:focus,
+fieldset[disabled] .btn-dl-orange:focus,
+.btn-dl-orange.disabled:active,
+.btn-dl-orange[disabled]:active,
+fieldset[disabled] .btn-dl-orange:active,
+.btn-dl-orange.disabled.active,
+.btn-dl-orange[disabled].active,
+fieldset[disabled] .btn-dl-orange.active {
+    background-color: #FF8176;
+    border-color: #FF8176;
+}
+
+.btn-dl-orange .badge {
+    color: #FF8176;
+    background-color: #FFFFFF;
+}

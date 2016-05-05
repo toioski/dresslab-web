@@ -17,7 +17,12 @@
     color: $color-testo-principale;
 }
 
+.loader {
+    font-size: 45px;
+}
+
 @import "navbar";
 @import "sidebar";
 @import "guardaroba";
 @import "dress-detail";
+@import "custom_bootstrap";

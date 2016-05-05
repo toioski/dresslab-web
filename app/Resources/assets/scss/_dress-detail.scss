@@ -27,7 +27,7 @@
         text-align: center;
         margin-right: -30px;
         margin-left: $dress-card-width;
-        padding: 60px 40px;
+        padding: 30px 40px;
         .actions-wrapper {
             width: 400px;
             margin: 0 auto;
@@ -64,13 +64,12 @@
         text-align: center;
         font-size: 20px;
         line-height: 24px;
-        box-shadow: 0 4px 3px rgba(0,0,0,.2);
+        box-shadow: 0 4px 3px rgba(0, 0, 0, .2);
         padding: 10px 40px;
         transition: $standard-link-transition;
         &:hover {
-            box-shadow: 0 6px 6px rgba(0,0,0,.3);
+            box-shadow: 0 6px 6px rgba(0, 0, 0, .3);
         }
-
 
         &.orange {
             background-color: $color-arancione-primario;
@@ -86,6 +85,59 @@
         }
         .description {
             font-size: 16px;
+        }
+    }
+
+    .richiesta-detail {
+        text-align: center;
+        .waiting {
+            text-transform: uppercase;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .line-horizontal {
+            display: inline-block;
+            height: 2px;
+            background-color: $color-bordo;
+            width: 100px;
+            margin: 0 20px;
+        }
+        .circle {
+            display: inline-block;
+            position: relative;
+            top: 25px;
+            margin-top: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid $color-bordo;
+        }
+        .commesso {
+            display: inline-block;
+        }
+        .commesso-picture {
+            margin: 0 auto;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-size: cover;
+            border: 1px solid $color-bordo;
+        }
+        .commesso-name {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .commesso-message {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid $color-bordo;
+            font-size: 20px;
+            border-radius: 10px;
+
+        }
+        .annulla-button {
+            margin-top: 20px;
         }
     }
 }

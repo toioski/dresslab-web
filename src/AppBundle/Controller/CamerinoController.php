@@ -52,6 +52,7 @@ class CamerinoController extends BaseController
         ));
     }
     
+    
     /**
      * @Route("/dress/add/{id}", name="app_camerino_dress_add")
      * @param $id
