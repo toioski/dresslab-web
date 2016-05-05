@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Articolo;
 use AppBundle\Entity\ArticoloProvato;
 use AppBundle\Entity\Flag;
+use AppBundle\Entity\ProdottoVendutoInsieme;
 use AppBundle\Entity\Task;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -39,16 +40,41 @@ class CamerinoController extends BaseController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function dressDetailAction($id) {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Articolo $articolo */
         $articolo = $em->getRepository("AppBundle:Articolo")
             ->find($id);
 
         $path = '/assets/images/vestiti/capo_' . $articolo->getId() . '.jpg';
+        
+        $qb = $em->getRepository("AppBundle:ProdottoVendutoInsieme")->createQueryBuilder('pvi');
+        $qb->where('pvi.vendutoCon = :prodotto')
+            ->setParameter('prodotto', $articolo->getProdotto()->getId());
+        /** @var ProdottoVendutoInsieme[] $pvi */
+        $pvi = $qb->getQuery()->getResult();
+        
+        /** @var Articolo[] $vendutiInsieme */
+        $vendutiInsieme = [];
+        $path_immagini = [];
+        foreach ($pvi as $prodV) {
+            $prodotto = $prodV->getProdotto();
+            $articoloVetrina = $em->getRepository("AppBundle:Articolo")
+                ->findOneBy([
+                    "prodotto" => $prodotto->getId(),
+                    "vetrina" => true
+                ]);
+            $vendutiInsieme[] = $articoloVetrina;
+            $path_immagini[$articoloVetrina->getId()] =
+                $this->get('assets.packages')->getUrl(
+                    '/assets/images/vestiti/capo_' . $articoloVetrina->getId() . '.jpg');
+        }
 
         return $this->render('camerino/detail.html.twig', array(
             "articolo" => $articolo,
-            "path_immagine" => $this->get('assets.packages')->getUrl($path)
+            "path_immagine" => $this->get('assets.packages')->getUrl($path),
+            "vendutiInsieme" => $vendutiInsieme,
+            "path_insieme" => $path_immagini
         ));
     }
 

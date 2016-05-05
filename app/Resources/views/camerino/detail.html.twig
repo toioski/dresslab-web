@@ -38,11 +38,11 @@
             </header>
             <div class="suggerimenti-container">
                 {# @TODO implementare vendutiInsieme #}
-                {% for art in articolo.prodotto.vendutiInsieme %}
+                {% for art in vendutiInsieme %}
                     <div class="dress-card-wrapper">
                         <div class="dress-card">
                             <div class="dress-container">
-                                <img class="dress-image" src="{{ path_immagine }}">
+                                <img class="dress-image" src="{{ path_insieme[art.id] }}">
                                 <div class="dress-head">
                                     <div class="dress-brand pull-left">Alpha Studio</div>
                                     <div class="dress-price pull-right">€ {{ art.prezzo }}</div>
