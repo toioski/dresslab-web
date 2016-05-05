@@ -65,11 +65,16 @@
             var id = $this.id;
             var taglia = $this.taglia;
             var colore = $this.colore;
-            var requestResource = $resource('/camerino/product/'+ id + '/taglia/' + taglia + '/colore/' + colore);
+            var requestResource = $resource('/camerino/product/'+ id + '/taglia/' + taglia + '/colore/' + colore.colore);
 
-            requestResource.save(function(){
-                console.log("chiamata POST fatta");
-                $this.toggleRichiesta();
+            requestResource.get(function(result){
+                console.log("chiamata POST fatta: " + result);
+                if (result.success) {
+                    $this.toggleRichiesta();
+                } else {
+                    $this.errorMessage = result.message;
+                }
+
             });
         }
 
