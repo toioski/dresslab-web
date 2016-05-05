@@ -2,6 +2,7 @@
     function GuardarobaController($resource, poller) {
         var $this = this;
         this.vestiti = {};
+        this.image = {};
         // Define your resource object.
         var myResource = $resource('/camerino/dress/list');
 
@@ -14,12 +15,12 @@
         // Update view. Since a promise can only be resolved or rejected once but we want
         // to keep track of all requests, poller service uses the notifyCallback. By default
         // poller only gets notified of success responses.
-        myPoller.promise.then(null, null, function(result){
+        myPoller.promise.then(null, null, function (result) {
             $this.vestiti = result;
-            console.log(result); 
+            console.log(result);
         });
     }
 
     angular.module('dresslab')
-        .controller('GuardarobaController', ['$resource','poller', GuardarobaController]);
+        .controller('GuardarobaController', ['$resource', 'poller', GuardarobaController]);
 })();
