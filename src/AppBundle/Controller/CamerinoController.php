@@ -31,7 +31,7 @@ class CamerinoController extends BaseController
         return $this->render('camerino/index.html.twig', array(// ...
         ));
     }
-    
+
     /**
      * @Route("/dress/{id}", name="app_camerino_dress_detail", requirements={"id":"\d+"})
      * @param $id
@@ -43,15 +43,15 @@ class CamerinoController extends BaseController
         /** @var Articolo $articolo */
         $articolo = $em->getRepository("AppBundle:Articolo")
             ->find($id);
-        
+
         $path = '/assets/images/vestiti/capo_' . $articolo->getId() . '.jpg';
-        
+
         return $this->render('camerino/detail.html.twig', array(
-            "articolo"      => $articolo,
+            "articolo" => $articolo,
             "path_immagine" => $this->get('assets.packages')->getUrl($path)
         ));
     }
-    
+
     /**
      * @Route("/dress/add/{id}", name="app_camerino_dress_add")
      * @param $id
@@ -68,7 +68,7 @@ class CamerinoController extends BaseController
         $articoliProvati = $em->getRepository("AppBundle:ArticoloProvato")
             ->findBy([
                 "articolo" => $articolo->getId(),
-                "data"     => new \DateTime("now")
+                "data" => new \DateTime("now")
             ]);
 
         if (count($articoliProvati) == 0) {
@@ -190,7 +190,6 @@ class CamerinoController extends BaseController
      * @param $id
      *
      * @return JsonResponse
-     *
      * @Route("/dress/{id}/taglie", name="app_camerino_taglie_disponibili")
      */
     public function getTaglieAction($id) {
@@ -220,9 +219,33 @@ class CamerinoController extends BaseController
 
     /**
      * @param $id
+     * @Route("/product/{id}/vetrina")
+     *
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function getArticoloVetrina($id) {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $prodotto = $em->getRepository("AppBundle:Prodotto")
+            ->find($id);
+        if ($prodotto == null) {
+            return new JsonResponse(["success" => false], 404);
+        }
+
+        $articoloVetrina = $em->getRepository("AppBundle:Articolo")
+            ->findBy([
+                "prodotto" => $prodotto->getId(),
+                "vetrina" => true
+            ]);
+
+        return $this->jsonResponse($this->articoliSerializer($articoloVetrina));
+    }
+
+    /**
+     * @param $id
      *
      * @return JsonResponse
-     *
      * @Route("/dress/{id}/colori", name="app_camerino_colori_disponibili")
      */
     public function getColoriAction($id) {
@@ -248,7 +271,7 @@ class CamerinoController extends BaseController
             $colori[] = [
                 "colore" => $item->getColore(),
                 "colore_hex" => $item->getColoreHex()
-                ];
+            ];
         }
         return new JsonResponse(['colori' => $colori]);
     }

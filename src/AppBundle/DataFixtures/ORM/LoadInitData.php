@@ -73,7 +73,7 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPrezzo(89.00)
             ->setQuantita(3);
         $manager->persist($articolo);
-        
+
         /**
          * Abito da sera
          */
@@ -128,7 +128,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPosizione("Settore C1")
             ->setTaglia("S")
             ->setPrezzo(105.00)
-            ->setQuantita(2);
+            ->setQuantita(2)
+            ->setVetrina(true);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
@@ -196,7 +197,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPosizione("Settore B5")
             ->setTaglia("S")
             ->setPrezzo(105.00)
-            ->setQuantita(2);
+            ->setQuantita(2)
+            ->setVetrina(true);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
@@ -265,7 +267,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPosizione("Settore E1")
             ->setTaglia("S")
             ->setPrezzo(105.00)
-            ->setQuantita(2);
+            ->setQuantita(2)
+            ->setVetrina(true);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
@@ -299,7 +302,6 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
         $manager->persist($articolo);
 
 
-
         /**
          * Scarpe
          */
@@ -316,7 +318,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPosizione("Settore A4")
             ->setTaglia("39")
             ->setPrezzo(89.00)
-            ->setQuantita(7);
+            ->setQuantita(7)
+            ->setVetrina(true);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
@@ -340,8 +343,6 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
         $manager->persist($articolo);
 
 
-
-
         /**
          * TAILLEUR
          */
@@ -356,7 +357,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPosizione("Settore A3")
             ->setTaglia("S")
             ->setPrezzo(99.00)
-            ->setQuantita(2);
+            ->setQuantita(2)
+            ->setVetrina(true);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
@@ -393,7 +395,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPosizione("Settore C5")
             ->setTaglia("S")
             ->setPrezzo(79.00)
-            ->setQuantita(5);
+            ->setQuantita(5)
+            ->setVetrina(true);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
@@ -430,7 +433,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPosizione("Settore D2")
             ->setTaglia("S")
             ->setPrezzo(39.00)
-            ->setQuantita(3);
+            ->setQuantita(3)
+            ->setVetrina(true);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
@@ -469,7 +473,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPosizione("Settore B4")
             ->setTaglia("S")
             ->setPrezzo(39.00)
-            ->setQuantita(5);
+            ->setQuantita(5)
+            ->setVetrina(true);
         $manager->persist($articolo);
 
         $articolo = new Articolo();
