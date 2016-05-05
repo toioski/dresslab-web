@@ -187,6 +187,73 @@ class CamerinoController extends BaseController
     }
 
     /**
+     * @param $id
+     *
+     * @return JsonResponse
+     *
+     * @Route("/dress/{id}/taglie", name="app_camerino_taglie_disponibili")
+     */
+    public function getTaglieAction($id) {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $articolo = $em->getRepository("AppBundle:Articolo")
+            ->find($id);
+        if ($articolo == null) {
+            return new JsonResponse(["success" => false], 404);
+        }
+
+        $taglie = [];
+
+        $qb = $em->getRepository("AppBundle:Articolo")
+            ->createQueryBuilder('a');
+        $qb->where("a.prodotto = :prodotto")
+            ->groupBy("a.taglia")
+            ->setParameter('prodotto', $articolo->getId());
+        /** @var Articolo[] $articoli */
+        $articoli = $qb->getQuery()->getResult();
+        foreach ($articoli as $item) {
+            $taglie[] = $item->getTaglia();
+        }
+        return new JsonResponse(['taglie' => $taglie]);
+    }
+
+    /**
+     * @param $id
+     *
+     * @return JsonResponse
+     *
+     * @Route("/dress/{id}/colori", name="app_camerino_colori_disponibili")
+     */
+    public function getColoriAction($id) {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $articolo = $em->getRepository("AppBundle:Articolo")
+            ->find($id);
+        if ($articolo == null) {
+            return new JsonResponse(["success" => false], 404);
+        }
+
+        $colori = [];
+
+        $qb = $em->getRepository("AppBundle:Articolo")
+            ->createQueryBuilder('a');
+        $qb->where("a.prodotto = :prodotto")
+            ->groupBy("a.colore")
+            ->setParameter('prodotto', $articolo->getId());
+        /** @var Articolo[] $articoli */
+        $articoli = $qb->getQuery()->getResult();
+        foreach ($articoli as $item) {
+            $colori[] = [
+                "colore" => $item->getColore(),
+                "colore_hex" => $item->getColoreHex()
+                ];
+        }
+        return new JsonResponse(['colori' => $colori]);
+    }
+
+    /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/task/list", name="app_camerino_task_list")
      */
@@ -198,7 +265,6 @@ class CamerinoController extends BaseController
             ->findBy(['messaggio' => null]);
         return $this->jsonResponse($this->serialize($tasks));
     }
-
 
     /**
      * @param Request $request

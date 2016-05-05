@@ -21,6 +21,7 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
         $prodotto->setNome("Maglioncino");
         // Inserisco nel database
         $manager->persist($prodotto);
+        $this->addReference('maglioncino', $prodotto);
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
@@ -53,7 +54,6 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setQuantita(1);
         $manager->persist($articolo);
 
-
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
             ->setColore("verde scuro")
@@ -73,15 +73,14 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPrezzo(89.00)
             ->setQuantita(3);
         $manager->persist($articolo);
-
-
-
+        
         /**
          * Abito da sera
          */
         $prodotto = new Prodotto();
         $prodotto->setNome("Abito da sera");
         $manager->persist($prodotto);
+        $this->addReference('abitosera', $prodotto);
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
@@ -120,6 +119,7 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
         $prodotto = new Prodotto();
         $prodotto->setNome("Pantaloni");
         $manager->persist($prodotto);
+        $this->addReference('pantaloni', $prodotto);
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
@@ -187,6 +187,7 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
         $prodotto = new Prodotto();
         $prodotto->setNome("Camicia");
         $manager->persist($prodotto);
+        $this->addReference('camicia', $prodotto);
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
@@ -255,6 +256,7 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
         $prodotto = new Prodotto();
         $prodotto->setNome("T-Shirt");
         $manager->persist($prodotto);
+        $this->addReference('tshirt', $prodotto);
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
@@ -302,8 +304,10 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
          * Scarpe
          */
         $prodotto = new Prodotto();
-        $prodotto->setNome("Scarpa da passeggio");
+        $prodotto->setNome("Scarpe");
         $manager->persist($prodotto);
+        $this->addReference('scarpe', $prodotto);
+
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
