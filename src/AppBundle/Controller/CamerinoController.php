@@ -180,6 +180,7 @@ class CamerinoController extends BaseController
         foreach ($tasks as $task) {
             $em->remove($task);
         }
+        $em->flush();
 
         return new JsonResponse(["success" => TRUE], 200);
     }
