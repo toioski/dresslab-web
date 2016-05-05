@@ -3,11 +3,11 @@
         var $this = this;
         this.vestiti = {};
         this.image = {};
-        this.richiesta = true;
+        this.richiesta = false;
         this.loading = false;
+        this.angularLoaded = true;
 
         this.toggleRichiesta = function () {
-            console.log("dio porco");
             $this.loading = true;
             $timeout(function() {
                 $this.loading = false;

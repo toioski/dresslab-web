@@ -3,7 +3,8 @@
 {% block content %}
     <div class="dress-detail" ng-controller="DettaglioController as dettaglio">
         <a class="back-button" href="{{ path('app_camerino_index') }}">Indietro</a>
-        <div class="detail-wrapper">
+        <i class="fa fa-circle-o-notch fa-spin loader" ng-show="!dettaglio.angularLoaded" style="position: absolute; left: 50%; top: 50%;"></i>
+        <div class="detail-wrapper hide" remove-class="hide">
             <section class="detail-container">
                 <div class="dress-card pull-left">
                     <div class="dress-container">
@@ -39,7 +40,7 @@
                                      style="background-image: url('{{ asset('assets/images/commesso-profile.png') }}')"></div>
                                 <div class="commesso-name">Francesco Rossi</div>
                                 <div class="commesso-message">
-                                    Taglia trovata, sto arrivando dio cane!
+                                    Taglia trovata, sto arrivando!
                                 </div>
                                 <button class="btn btn-lg btn-dl-orange annulla-button" ng-click="dettaglio.toggleRichiesta()">Annulla richiesta</button>
                             </div>
