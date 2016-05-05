@@ -249,7 +249,7 @@ class CamerinoController extends BaseController
                 break;
             }
             case self::CAMERINO_INIZIALIZZATO: {
-                $response = $this->jsonResponse($this->serialize($articoli));
+                $response = $this->jsonResponse($this->articoliSerializer($articoli));
                 break;
             }
             case self::CAMERINO_NUOVO_CAPO: {
@@ -266,7 +266,7 @@ class CamerinoController extends BaseController
                     $em->remove($task);
                     $em->flush();
                 }
-                $response = $this->jsonResponse($this->serialize($articoli));
+                $response = $this->jsonResponse($this->articoliSerializer($articoli));
                 break;
             }
             default: {
