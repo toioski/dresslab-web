@@ -207,6 +207,35 @@ class CamerinoController extends BaseController
      * @param $id
      *
      * @return JsonResponse
+     * @Route("/product/{id}/taglia/{taglia}/colore/{colore}")
+     */
+    public function addTaskAction($id, $taglia, $colore) {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $articolo = $em->getRepository("AppBundle:Articolo")
+            ->findOneBy([
+                'prodotto' => $id,
+                'taglia' => $taglia,
+                'colore' => $colore
+            ]);
+        if ($articolo == null) {
+            return new JsonResponse(["success" => false], 404);
+        }
+
+        $task = new Task();
+        $task->setArticolo($articolo)
+            ->setCamerino("Camerino 1");
+        $em->persist($task);
+        $em->flush();
+
+        return new JsonResponse(["success" => true], 200);
+    }
+
+    /**
+     * @param $id
+     *
+     * @return JsonResponse
      * @Route("/dress/{id}/taglie", name="app_camerino_taglie_disponibili")
      */
     public function getTaglieAction($id) {
