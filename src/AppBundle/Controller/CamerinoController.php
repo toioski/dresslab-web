@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Articolo;
 use AppBundle\Entity\ArticoloProvato;
 use AppBundle\Entity\Flag;
+use AppBundle\Entity\ProdottoVendutoInsieme;
 use AppBundle\Entity\Task;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -31,7 +32,7 @@ class CamerinoController extends BaseController
         return $this->render('camerino/index.html.twig', array(// ...
         ));
     }
-    
+
     /**
      * @Route("/dress/{id}", name="app_camerino_dress_detail", requirements={"id":"\d+"})
      * @param $id
@@ -39,20 +40,46 @@ class CamerinoController extends BaseController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function dressDetailAction($id) {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Articolo $articolo */
         $articolo = $em->getRepository("AppBundle:Articolo")
             ->find($id);
-        
+
         $path = '/assets/images/vestiti/capo_' . $articolo->getId() . '.jpg';
         
+        $qb = $em->getRepository("AppBundle:ProdottoVendutoInsieme")->createQueryBuilder('pvi');
+        $qb->where('pvi.vendutoCon = :prodotto')
+            ->setParameter('prodotto', $articolo->getProdotto()->getId());
+        /** @var ProdottoVendutoInsieme[] $pvi */
+        $pvi = $qb->getQuery()->getResult();
+        
+        /** @var Articolo[] $vendutiInsieme */
+        $vendutiInsieme = [];
+        $path_immagini = [];
+        foreach ($pvi as $prodV) {
+            $prodotto = $prodV->getProdotto();
+            $articoloVetrina = $em->getRepository("AppBundle:Articolo")
+                ->findOneBy([
+                    "prodotto" => $prodotto->getId(),
+                    "vetrina" => true
+                ]);
+            $vendutiInsieme[] = $articoloVetrina;
+            $path_immagini[$articoloVetrina->getId()] =
+                $this->get('assets.packages')->getUrl(
+                    '/assets/images/vestiti/capo_' . $articoloVetrina->getId() . '.jpg');
+        }
+
         return $this->render('camerino/detail.html.twig', array(
-            "articolo"      => $articolo,
-            "path_immagine" => $this->get('assets.packages')->getUrl($path)
+            "articolo" => $articolo,
+            "path_immagine" => $this->get('assets.packages')->getUrl($path),
+            "vendutiInsieme" => $vendutiInsieme,
+            "path_insieme" => $path_immagini
         ));
     }
     
     
+
     /**
      * @Route("/dress/add/{id}", name="app_camerino_dress_add")
      * @param $id
@@ -69,7 +96,7 @@ class CamerinoController extends BaseController
         $articoliProvati = $em->getRepository("AppBundle:ArticoloProvato")
             ->findBy([
                 "articolo" => $articolo->getId(),
-                "data"     => new \DateTime("now")
+                "data" => new \DateTime("now")
             ]);
 
         if (count($articoliProvati) == 0) {
@@ -188,6 +215,96 @@ class CamerinoController extends BaseController
     }
 
     /**
+     * @param $id
+     *
+     * @return JsonResponse
+     * @Route("/dress/{id}/taglie", name="app_camerino_taglie_disponibili")
+     */
+    public function getTaglieAction($id) {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $articolo = $em->getRepository("AppBundle:Articolo")
+            ->find($id);
+        if ($articolo == null) {
+            return new JsonResponse(["success" => false], 404);
+        }
+
+        $taglie = [];
+
+        $qb = $em->getRepository("AppBundle:Articolo")
+            ->createQueryBuilder('a');
+        $qb->where("a.prodotto = :prodotto")
+            ->groupBy("a.taglia")
+            ->setParameter('prodotto', $articolo->getId());
+        /** @var Articolo[] $articoli */
+        $articoli = $qb->getQuery()->getResult();
+        foreach ($articoli as $item) {
+            $taglie[] = $item->getTaglia();
+        }
+        return new JsonResponse(['taglie' => $taglie]);
+    }
+
+    /**
+     * @param $id
+     * @Route("/product/{id}/vetrina")
+     *
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function getArticoloVetrina($id) {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $prodotto = $em->getRepository("AppBundle:Prodotto")
+            ->find($id);
+        if ($prodotto == null) {
+            return new JsonResponse(["success" => false], 404);
+        }
+
+        $articoloVetrina = $em->getRepository("AppBundle:Articolo")
+            ->findBy([
+                "prodotto" => $prodotto->getId(),
+                "vetrina" => true
+            ]);
+
+        return $this->jsonResponse($this->articoliSerializer($articoloVetrina));
+    }
+
+    /**
+     * @param $id
+     *
+     * @return JsonResponse
+     * @Route("/dress/{id}/colori", name="app_camerino_colori_disponibili")
+     */
+    public function getColoriAction($id) {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $articolo = $em->getRepository("AppBundle:Articolo")
+            ->find($id);
+        if ($articolo == null) {
+            return new JsonResponse(["success" => false], 404);
+        }
+
+        $colori = [];
+
+        $qb = $em->getRepository("AppBundle:Articolo")
+            ->createQueryBuilder('a');
+        $qb->where("a.prodotto = :prodotto")
+            ->groupBy("a.colore")
+            ->setParameter('prodotto', $articolo->getId());
+        /** @var Articolo[] $articoli */
+        $articoli = $qb->getQuery()->getResult();
+        foreach ($articoli as $item) {
+            $colori[] = [
+                "colore" => $item->getColore(),
+                "colore_hex" => $item->getColoreHex()
+            ];
+        }
+        return new JsonResponse(['colori' => $colori]);
+    }
+
+    /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/task/list", name="app_camerino_task_list")
      */
@@ -199,7 +316,6 @@ class CamerinoController extends BaseController
             ->findBy(['messaggio' => null]);
         return $this->jsonResponse($this->serialize($tasks));
     }
-
 
     /**
      * @param Request $request
