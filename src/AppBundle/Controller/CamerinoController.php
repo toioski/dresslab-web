@@ -177,7 +177,9 @@ class CamerinoController extends BaseController
         }
         $tasks = $em->getRepository("AppBundle:Task")
             ->findAll();
-        $em->remove($tasks);
+        foreach ($tasks as $task) {
+            $em->remove($task);
+        }
 
         return new JsonResponse(["success" => TRUE], 200);
     }
