@@ -8,6 +8,7 @@ use AppBundle\Entity\Flag;
 use AppBundle\Entity\ProdottoVendutoInsieme;
 use AppBundle\Entity\Task;
 use Doctrine\ORM\EntityManager;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -210,26 +211,34 @@ class CamerinoController extends BaseController
      * @Route("/product/{id}/taglia/{taglia}/colore/{colore}")
      */
     public function addTaskAction($id, $taglia, $colore) {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
+        try {
+            /** @var EntityManager $em */
+            $em = $this->getDoctrine()->getManager();
 
-        $articolo = $em->getRepository("AppBundle:Articolo")
-            ->findOneBy([
-                'prodotto' => $id,
-                'taglia' => $taglia,
-                'colore' => $colore
-            ]);
-        if ($articolo == null) {
-            return new JsonResponse(["success" => false], 404);
+            var_dump($taglia);
+            var_dump($colore);
+            die();
+
+            $articolo = $em->getRepository("AppBundle:Articolo")
+                ->findOneBy([
+                    'prodotto' => $id,
+                    'taglia' => $taglia,
+                    'colore' => $colore
+                ]);
+            if ($articolo == null) {
+                return new JsonResponse(["success" => false], 404);
+            }
+
+            $task = new Task();
+            $task->setArticolo($articolo)
+                ->setCamerino("Camerino 1");
+            $em->persist($task);
+            $em->flush();
+
+            return new JsonResponse(["success" => true], 200);
+        } catch (Exception $e) {
+            return new JsonResponse(["success" => false, "error" => $e->getMessage()], 500);
         }
-
-        $task = new Task();
-        $task->setArticolo($articolo)
-            ->setCamerino("Camerino 1");
-        $em->persist($task);
-        $em->flush();
-
-        return new JsonResponse(["success" => true], 200);
     }
 
     /**
