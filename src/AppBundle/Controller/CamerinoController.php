@@ -118,17 +118,6 @@ class CamerinoController extends BaseController
     }
 
     /**
-     * @Route("/task/list", name="app_camerino_get_tasks")
-     */
-    public function getTasks() {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-
-        $tasks = $em->getRepository("AppBundle:Task")->findBy(["messaggio" => NULL]);
-        return $this->jsonResponse($this->serialize($tasks));
-    }
-
-    /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/rfid", name="app_camerino_rfid")
      */
@@ -308,12 +297,11 @@ class CamerinoController extends BaseController
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/task/list", name="app_camerino_task_list")
      */
-    public function getUnservedTaskAction() {
+    public function getTaskListAction() {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Task[] $tasks */
-        $tasks = $em->getRepository("AppBundle:Task")
-            ->findBy(['messaggio' => null]);
+        $tasks = $em->getRepository("AppBundle:Task")->findAll();
         return $this->jsonResponse($this->serialize($tasks));
     }
 
