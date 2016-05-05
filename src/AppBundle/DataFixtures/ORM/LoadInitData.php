@@ -84,8 +84,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("bordeaux")
-            ->setColoreHex("#a70026")
+            ->setColore("rosso")
+            ->setColoreHex("#f24348")
             ->setPosizione("Settore B1")
             ->setTaglia("M")
             ->setPrezzo(150.00)
@@ -95,8 +95,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("rosa")
-            ->setColoreHex("#bf9ba9")
+            ->setColore("verde")
+            ->setColoreHex("#77ac76")
             ->setPosizione("Settore B2")
             ->setTaglia("S")
             ->setPrezzo(150.00)
@@ -105,8 +105,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("blue scuro")
-            ->setColoreHex("#272741")
+            ->setColore("blue chiaro")
+            ->setColoreHex("#7189ac")
             ->setPosizione("Settore B2")
             ->setTaglia("S")
             ->setPrezzo(150.00)
@@ -123,8 +123,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("nero")
-            ->setColoreHex("#000000")
+            ->setColore("grigio chiaro")
+            ->setColoreHex("#969593")
             ->setPosizione("Settore C1")
             ->setTaglia("S")
             ->setPrezzo(105.00)
@@ -134,8 +134,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("beige")
-            ->setColoreHex("#9d877a")
+            ->setColore("grigio scuro")
+            ->setColoreHex("#655f63")
             ->setPosizione("Settore C1")
             ->setTaglia("M")
             ->setPrezzo(105.00)
@@ -144,8 +144,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("bianco")
-            ->setColoreHex("#ffffff")
+            ->setColore("beige")
+            ->setColoreHex("#cca06f")
             ->setPosizione("Settore C1")
             ->setTaglia("XL")
             ->setPrezzo(105.00)
@@ -262,8 +262,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("nero")
-            ->setColoreHex("#0000FF")
+            ->setColore("blue scuro")
+            ->setColoreHex("#0c2754")
             ->setPosizione("Settore E1")
             ->setTaglia("S")
             ->setPrezzo(105.00)
@@ -273,8 +273,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("rosso")
-            ->setColoreHex("#b4272f")
+            ->setColore("rosso scuro")
+            ->setColoreHex("#671430")
             ->setPosizione("Settore E1")
             ->setTaglia("M")
             ->setPrezzo(105.00)
@@ -283,8 +283,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("blue")
-            ->setColoreHex("#4C4CFF")
+            ->setColore("verde chiaro")
+            ->setColoreHex("#026257")
             ->setPosizione("Settore E1")
             ->setTaglia("XL")
             ->setPrezzo(105.00)
@@ -313,8 +313,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("rosso")
-            ->setColoreHex("#f64546")
+            ->setColore("rosso smeraldo")
+            ->setColoreHex("#ef3f41")
             ->setPosizione("Settore A4")
             ->setTaglia("39")
             ->setPrezzo(89.00)
@@ -324,8 +324,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("marrone")
-            ->setColoreHex("#aa7b49")
+            ->setColore("verde chiaro")
+            ->setColoreHex("#90c09a")
             ->setPosizione("Settore A4")
             ->setTaglia("37")
             ->setPrezzo(89.00)
@@ -334,13 +334,46 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("biege")
-            ->setColoreHex("#000000")
+            ->setColore("azzurro scuro")
+            ->setColoreHex("#9fafc8")
             ->setPosizione("Settore A4")
             ->setTaglia("36")
             ->setPrezzo(89.00)
             ->setQuantita(1);
         $manager->persist($articolo);
+
+
+        $articolo = new Articolo();
+        $articolo->setProdotto($prodotto)
+            ->setColore("biege")
+            ->setColoreHex("#ac7a45")
+            ->setPosizione("Settore A4")
+            ->setTaglia("36")
+            ->setPrezzo(89.00)
+            ->setQuantita(1);
+        $manager->persist($articolo);
+
+        $articolo = new Articolo();
+        $articolo->setProdotto($prodotto)
+            ->setColore("grigio chiaro")
+            ->setColoreHex("#989898")
+            ->setPosizione("Settore A4")
+            ->setTaglia("36")
+            ->setPrezzo(89.00)
+            ->setQuantita(1);
+        $manager->persist($articolo);
+
+
+        $articolo = new Articolo();
+        $articolo->setProdotto($prodotto)
+            ->setColore("grigio chiaro")
+            ->setColoreHex("#bdbdbd")
+            ->setPosizione("Settore A4")
+            ->setTaglia("36")
+            ->setPrezzo(89.00)
+            ->setQuantita(1);
+        $manager->persist($articolo);
+
 
 
         /**
@@ -390,8 +423,8 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $articolo = new Articolo();
         $articolo->setProdotto($prodotto)
-            ->setColore("blue")
-            ->setColoreHex("#000033")
+            ->setColore("nero")
+            ->setColoreHex("#000000")
             ->setPosizione("Settore C5")
             ->setTaglia("S")
             ->setPrezzo(79.00)
@@ -496,6 +529,26 @@ class LoadInitData extends AbstractFixture implements FixtureInterface, OrderedF
             ->setPrezzo(39.00)
             ->setQuantita(2);
         $manager->persist($articolo);
+
+
+        /**
+         * Borse
+         */
+
+        $prodotto = new Prodotto();
+        $prodotto->setNome("Borse");
+        $manager->persist($prodotto);
+
+        $articolo = new Articolo();
+        $articolo->setProdotto($prodotto)
+            ->setColore("nera")
+            ->setColoreHex("#000000")
+            ->setPosizione("Settore B4")
+            ->setTaglia("-")
+            ->setPrezzo(150.00)
+            ->setQuantita(5);
+        $manager->persist($articolo);
+
 
         // Flush del database
         $manager->flush();
